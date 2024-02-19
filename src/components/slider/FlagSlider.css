@@ -1,0 +1,12 @@
+.swiper-button-prev, .swiper-button-next {
+    color: #3b99ed !important; /* Changing the color to white */
+}
+
+.swiper-button-prev {
+    margin-left: -10px;
+    /* height: '15px'; */
+}
+  /* If the navigation buttons use background images (arrows) and you want to change them, target their ::after pseudo-elements */
+  /* .swiper-button-prev::after, .swiper-button-next::after {
+    color: rgb(16, 81, 141) !important;
+  } */

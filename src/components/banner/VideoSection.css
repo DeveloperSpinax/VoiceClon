@@ -1,0 +1,27 @@
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(105% - 65px));
+  }
+}
+
+@keyframes slideRightLarge {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100% - 10px));  /* Adjust the percentage and subtraction value accordingly */
+  }
+}
+
+.slideRightAnimation {
+  animation: slideRight 0.5s infinite alternate;
+}
+
+@media (min-width: 1401px) {
+  .slideRightAnimation {
+    animation-name: slideRightLarge;
+  }
+}

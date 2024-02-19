@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide the scrollbar buttons */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 2px;
+  background-color: #f1f1f1;
+  border-radius: 32px;
+}
+
+/* Style the scroll thumb (the part you drag) */
+::-webkit-scrollbar-thumb {
+  background-color: #D6D6D6 ; /* Dark with 50% opacity */
+  border-radius: 32px;
+  &:hover {
+      background-color: rgba(0,0,0,0.7); /* Darker when hovered */
+  }
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #D6D6D6 transparent;
+}
+
