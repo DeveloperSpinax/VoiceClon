@@ -93,9 +93,6 @@ const PriceCard = (props) => {
 
             </Box>
 
-            
-
-
             <List sx={{ p: 0, m: 0 }}>
 
                 {
@@ -127,9 +124,7 @@ const PriceCard = (props) => {
                     ))
                 } 
             </List>
-
-
-            
+ 
           </CardContent>
 
           <CardActions >

@@ -1,9 +1,13 @@
 import React from 'react';
-import {Box, Button, Grid, Slider, Stack, Typography } from '@mui/material'
+import {Box, Button, Grid, Slider, Stack, Typography, useMediaQuery } from '@mui/material'
 import './VideoSection.css';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const MintuesSaved = (props) => {
+
+  const isSmallScreen = useMediaQuery('(max-width:900px)')
+  const isMobileScreen = useMediaQuery('(max-width:650px)')
+
   const [minutes, setMinutes] = React.useState(0);
   const [saveMinutes, setSaveMinutes] = React.useState(0)
   const [dollar, setDollar] = React.useState(0)
@@ -14,6 +18,8 @@ const MintuesSaved = (props) => {
     setSaveMinutes(parseInt(mintSaved))
     setDollar(event.target.value * 5)
   }
+
+
 
   return (
     <Box sx={{
@@ -35,17 +41,17 @@ const MintuesSaved = (props) => {
                 props.lang && props.lang === "ENG" ? (
                     <Stack direction="column">
                         <Typography 
-                            variant="h2"
+                            variant={isSmallScreen ? (isMobileScreen ? "h4" : "h3") : "h2"}
                             sx={{
                                 textAlign: 'center', 
                                 fontFamily: 'Catamaran',
                                 color: '#380036',
                         }}>
-                            Stop wasting time and money
+                            Stop wasting time & money
                         </Typography>
 
                         <Typography 
-                            variant="h3"
+                            variant={isSmallScreen ? (isMobileScreen ? "h5" : "h4") : "h3"}
                             sx={{
                                 textAlign: 'center', 
                                 fontFamily: 'Catamaran',
@@ -64,7 +70,7 @@ const MintuesSaved = (props) => {
                 ) : (
                     <Stack direction="column">
                         <Typography 
-                            variant="h2"
+                            variant={isSmallScreen ? (isMobileScreen ? "h4" : "h3") : "h2"}
                             sx={{
                                 textAlign: 'center', 
                                 fontFamily: 'Catamaran',
@@ -74,7 +80,7 @@ const MintuesSaved = (props) => {
                         </Typography>
 
                         <Typography 
-                            variant="h3"
+                            variant={isSmallScreen ? (isMobileScreen ? "h5" : "h4") : "h3"}
                             sx={{
                                 textAlign: 'center', 
                                 fontFamily: 'Catamaran',
@@ -92,20 +98,16 @@ const MintuesSaved = (props) => {
                     </Stack>
                 )
             }
-
-            
-
         </Box>
 
         <Grid container spacing={0.5}>
             <Grid item xs={12}>
                 <Stack direction="column" spacing={2}>
-
                     {
                         props.lang && props.lang === "ENG" ? (
 
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"} 
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Nunito Sans',
@@ -117,7 +119,7 @@ const MintuesSaved = (props) => {
 
                         ) : (
                             <Typography 
-                                variant="h4" 
+                            variant={isMobileScreen ? "h5" : "h4"} 
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Nunito Sans',
@@ -132,8 +134,8 @@ const MintuesSaved = (props) => {
                     <Box
                         sx={{ 
                             mt: "32px !important",
-                            px: 40
-                    }}>
+                            px: isSmallScreen ? (isMobileScreen ? 10 : 20) : 40
+                        }}>
                         <Slider 
                             size='large'
                             defaultValue={0}
@@ -148,9 +150,8 @@ const MintuesSaved = (props) => {
 
                     {
                         props.lang && props.lang === "ENG" ? (
-
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"} 
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Nunito Sans',
@@ -159,11 +160,9 @@ const MintuesSaved = (props) => {
                             >
                                 Save {saveMinutes} hours and ${dollar} per month
                             </Typography>
-
                         ) : (
-
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"} 
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Nunito Sans',
@@ -172,12 +171,8 @@ const MintuesSaved = (props) => {
                             >
                                 Ahorrar {saveMinutes} horas y ${dollar} por mes
                             </Typography>
-
                         )
                     }
-
-                    
-
                 </Stack>
             </Grid>
         </Grid>
@@ -191,7 +186,7 @@ const MintuesSaved = (props) => {
             alignItems: 'center', // Center children vertically
         }}>
             <Button sx={{
-                width: '30%',
+                width: '50%',
                 color: '#fff',
                 background: 'linear-gradient(20deg, #2786d7, #5df9fd)', 
                 textTransform: 'none', 

@@ -1,135 +1,32 @@
 import React from 'react'
-import {Box, Button, Grid, Stack, Typography } from '@mui/material'
+import {Box, Button, Grid, Stack, Typography, useMediaQuery } from '@mui/material'
 import VideoComparison from '../video/VideoComparison'
 import videoDemo from '../../static/video/Intro.mp4'
 import bannerDemo from '../../static/video/Introposter.jpg'
-import './VideoSection.css';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowDownOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowDownOutlined';
 
 const VideoSection = (props) => {
+
+  const isLaptopScreen = useMediaQuery("(max-width: 1250px)");
+  const isTabletScreen = useMediaQuery("(max-width: 899px)")
+  const isMobileScreen = useMediaQuery("(max-width: 600px)")
+
   return (
     <Box sx={{
         mt: 3,
-        // mb: 10,
         px: 4,
         py: 4,
-        // borderTop: '2px solid #e1e1e1',
         borderBottom: '2px solid #e1e1e1',
     }}>
 
-        {/* <Box sx={{
-            mb: 4,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}>
-
-                {
-                    props.lang && props.lang === "ENG" ? (
-
-                        <Stack direction="column">
-                            <Typography 
-                                variant="h2"
-                                sx={{
-                                    textAlign: 'center', 
-                                    fontFamily: 'Catamaran',
-                                    color: '#380036',
-                            }}>
-                                Solutions For Today’s
-                            </Typography>
-                            <Typography 
-                                variant="h3"
-                                sx={{
-                                    textAlign: 'center', 
-                                    fontFamily: 'Catamaran',
-                                    background: 'linear-gradient(45deg, #2786d7, #5df9fd)',
-                                    color: 'transparent',
-                                    backgroundClip: 'text',
-                                    WebkitBackgroundClip: 'text',
-                                }}
-                            >
-                                Video Creation 
-                                <span style={{ color: "#380036" }}>
-                                &nbsp;Needs
-                                </span>
-                            </Typography>
-                            <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}> 
-
-                            <Typography sx={{
-                                textAlign: 'center',
-                                fontFamily: "'Nunito Sans', sans-serif",
-                                fontWeight: 400,
-                            }}>
-                                Whether you are a beginner, an expert, or a professional video creator,
-                                we offer solutions to help you reach newer heights. 
-                            </Typography>
-
-                            </Box>
-                        </Stack>
-
-                    ) : (
-
-                        <Stack direction="column">
-                            <Typography 
-                                variant="h2"
-                                sx={{
-                                    textAlign: 'center', 
-                                    fontFamily: 'Catamaran',
-                                    color: '#380036',
-                            }}>  
-                                Soluciones para la actualidad
-                            </Typography>
-                            <Typography 
-                                variant="h3"
-                                sx={{
-                                    textAlign: 'center', 
-                                    fontFamily: 'Catamaran',
-                                    background: 'linear-gradient(45deg, #2786d7, #5df9fd)',
-                                    color: 'transparent',
-                                    backgroundClip: 'text',
-                                    WebkitBackgroundClip: 'text',
-                                }}
-                            >
-                                Creación de vídeos
-                                <span style={{ color: "#380036" }}>
-                                &nbsp;Necesidades
-                                </span>
-                            </Typography>
-                            <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}> 
-
-                            <Typography sx={{
-                                textAlign: 'center',
-                                fontFamily: "'Nunito Sans', sans-serif",
-                                fontWeight: 400,
-                            }}>
-                                Ya seas principiante, experto o creador de vídeos profesional,
-                                Ofrecemos soluciones para ayudarle a alcanzar nuevas alturas.
-                            </Typography>
-
-                            </Box>
-                        </Stack> 
-                    )
-                }
-
-            
-
-        </Box> */}
-
-        <Grid container spacing={0.5}>
+        <Grid container spacing={2}>
 
             <Grid 
                 item 
                 xs={12} 
-                md={5.5} 
+                md={5} 
                 sx={{ 
                     display: 'flex',
                     justifyContent: 'center',
@@ -142,7 +39,7 @@ const VideoSection = (props) => {
                         props.lang && props.lang === "ENG" ? (
 
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"} 
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Catamaran',
@@ -155,7 +52,7 @@ const VideoSection = (props) => {
                         ) : (
 
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"}
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Catamaran',
@@ -173,7 +70,7 @@ const VideoSection = (props) => {
                     <Box
                         sx={{
                             height: '80%',
-                            width: '600px',
+                            width: 'auto',
                             mt: "32px !important",
                             boxShadow: '0px 25px 80px #0000001f, 0px 0px 7px 4px rgba(46,143,217,0.54) ',
                             borderRadius: '4px',
@@ -190,45 +87,64 @@ const VideoSection = (props) => {
                 </Stack>
             </Grid>
 
-            <Grid item xs={12} md={1}>
-
+            <Grid item xs={12} md={2} sx={{ display: isTabletScreen ? "none" : "flex", justifyContent: 'flex-start', alignItems: 'center' }}>
                 <Box sx={{
-                    display: 'flex',
+                    display: "flex",
                     alignItems: 'center',
-                    height: '100%',
-                    width: '100%',
                     mt: "50px !important",
-                    px: 3,
                     cursor: 'pointer',
+                    animation: 'scrollLinearX 1.5s linear infinite', // Add animation property
                 }}>
                     <svg 
-                        width="100" 
-                        height="100" 
+                        width={isLaptopScreen ? '70' : '100'}
+                        height={isLaptopScreen ? '70' : '100'} 
                         viewBox="0 0 60 60"
-                        className="slideRightAnimation"
                     >
                         <defs>
                             <linearGradient id="gradientColor" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style={{ stopColor: "#2786d7", stopOpacity: 1 }} />
-                                <stop offset="100%" style={{ stopColor: "#5df9fd", stopOpacity: 1 }} />
+                                <stop offset="80%" style={{ stopColor: "#5df9fd", stopOpacity: 1 }} />
                             </linearGradient>
                         </defs>
-                        <KeyboardDoubleArrowRightIcon
-                            sx={{
-                                height: 60,
-                                width: 60,
-                                fill: "url(#gradientColor)"
-                            }}
-                        />
+                        <KeyboardDoubleArrowRightIcon sx={{ 
+                            height: 100,
+                            width: 100,
+                            fill: "url(#gradientColor)",
+                            '@keyframes scrollLinearX': { // Define keyframes for linear scrolling animation
+                                '0%': { transform: 'translateX(0)' },
+                                '100%': { transform: isLaptopScreen ? 'translateX(85%)' : 'translateX(120%)'  }, // Adjust this value to control the distance of scrolling
+                            },
+                        }} />
                     </svg>
                 </Box>
+            </Grid>
 
+            <Grid item xs={12} sx={{ display: isTabletScreen ? "flex" : "none", justifyContent: 'center', alignItems: 'center' }}>
+                <Box sx={{
+                    display: "flex",
+                    alignItems: 'center',
+                    justifyContent: "center",
+                    cursor: 'pointer',
+                    mt: 2,
+                    animation: 'scrollLinear 0.5s linear infinite', // Add animation property
+                }}>
+                    <KeyboardDoubleArrowDownOutlinedIcon sx={{ 
+                                height: 80,
+                                width: 80,
+                                color: "#380036",
+                                '@keyframes scrollLinear': { // Define keyframes for linear scrolling animation
+                                    '0%': { transform: 'translateY(0)' },
+                                    '100%': { transform: 'translateY(10%)'  }, // Adjust this value to control the distance of scrolling
+                                },
+                            }}
+                        />
+                </Box>
             </Grid>
 
             <Grid 
                 item 
                 xs={12} 
-                md={5.5} 
+                md={5} 
                 sx={{ 
                     display: 'flex',
                     justifyContent: 'center',
@@ -237,11 +153,11 @@ const VideoSection = (props) => {
             >
                 <Stack direction="column" spacing={2}>
 
-                {
+                    {
                         props.lang && props.lang === "ENG" ? (
 
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"}
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Catamaran',
@@ -252,9 +168,8 @@ const VideoSection = (props) => {
                             </Typography>
 
                         ) : (
-
                             <Typography 
-                                variant="h4" 
+                                variant={isMobileScreen ? "h5" : "h4"}
                                 sx={{ 
                                     textAlign: 'center', 
                                     fontFamily: 'Catamaran',
@@ -263,13 +178,12 @@ const VideoSection = (props) => {
                             >  
                                 Vídeo traducido 
                             </Typography>
-
                         )
                     }
 
                     <Box sx={{
                         height: '80%',
-                        width: '600px',
+                        width: 'auto',
                         mt: "32px !important",
                         boxShadow: '0px 25px 80px #0000001f, 0px 0px 7px 4px rgba(46,143,217,0.54) ',
                         borderRadius: '4px',
@@ -294,7 +208,7 @@ const VideoSection = (props) => {
             alignItems: 'center', // Center children vertically
         }}>
             <Button sx={{
-                width: '30%',
+                width: isTabletScreen ? "55%" : "30%",
                 color: '#fff',
                 background: 'linear-gradient(20deg, #2786d7, #5df9fd)', 
                 textTransform: 'none', 

@@ -29,6 +29,8 @@ const dataSpanish = [
 const ThreeStep = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const isMediumScreen = useMediaQuery('(max-width:1800px)')
+  const isLaptopScreen = useMediaQuery('(max-width:1350px)')
+  const isSmallScreen = useMediaQuery('(max-width:900px)')
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,6 +51,7 @@ const ThreeStep = (props) => {
         // borderBottom: '2px solid #e1e1e1',
         height: '700px',
         background: '#fff',
+        display: isSmallScreen && "none"
     }}>
 
         <Box sx={{
@@ -123,8 +126,8 @@ const ThreeStep = (props) => {
     
         <Grid container spacing={5} sx={{ mt: 5 }}>
 
-            <Grid item xs={6} sx={{ mt: -5 }}>
-                <Box sx={{ height: '200px', width: "auto" }}>
+            <Grid item xs={6}  sx={{ mt: isLaptopScreen ? 0 : -5 }}>
+                <Box sx={{ height: 'auto', width: "auto" }}>
                     <DefaultPlayer
                         key={data[currentIndex].id}
                         controls={[]}
@@ -136,7 +139,7 @@ const ThreeStep = (props) => {
                         }}>
                         <source src={data[currentIndex].image} type="video/mp4" />
                     </DefaultPlayer>
-                    </Box>
+                </Box>
             </Grid>
 
             <Grid item xs={6}>
@@ -150,7 +153,7 @@ const ThreeStep = (props) => {
                             background: index === currentIndex ? '#fff' : 'transparent',
                             boxShadow: index === currentIndex ? '0px 25px 80px #0000001f, 0px 0px 7px 4px rgba(46,143,217,0.54) ': 'none',
                             transition: index === currentIndex ? 'box-shadow ease-in, border-color ease-in, background-color ease-in, opacity ease-in, filter ease-in' : 'none',
-                            p: 3,
+                            p: isLaptopScreen ? 1 : 3,
                         }}
                         key={item.id}
                         >
@@ -158,7 +161,7 @@ const ThreeStep = (props) => {
                                 <Grid item xs={10}>
                                     <Stack direction="column" spacing={0.2}>
                                         <Typography 
-                                            variant="h5" 
+                                            variant={isLaptopScreen ? "h6" : "h5"} 
                                             sx={{
                                                 textTransform: 'none', 
                                                 fontFamily: 'Nunito Sans',
@@ -181,7 +184,7 @@ const ThreeStep = (props) => {
                             background: index === currentIndex ? '#fff' : 'transparent',
                             boxShadow: index === currentIndex ? '0px 25px 80px #0000001f, 0px 0px 7px 4px rgba(46,143,217,0.54) ': 'none',
                             transition: index === currentIndex ? 'box-shadow ease-in, border-color ease-in, background-color ease-in, opacity ease-in, filter ease-in' : 'none',
-                            p: 3,
+                            p: isLaptopScreen ? 1 : 3,
                         }}
                         key={item.id}
                         >
@@ -189,7 +192,7 @@ const ThreeStep = (props) => {
                                 <Grid item xs={10}>
                                     <Stack direction="column" spacing={0.2}>
                                         <Typography 
-                                            variant="h5" 
+                                            variant={isLaptopScreen ? "h6" : "h5"} 
                                             sx={{
                                                 textTransform: 'none', 
                                                 fontFamily: 'Nunito Sans',

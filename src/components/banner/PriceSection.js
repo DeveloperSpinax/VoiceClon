@@ -1,4 +1,4 @@
-import { Grid, Box, Stack, Typography } from '@mui/material'
+import { Grid, Box, Stack, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
 import PriceCard from '../cards/PriceCard'
 import CardSwitch from '../cards/CardSwitch'
@@ -80,6 +80,12 @@ const customDescrSpanish = "Para empresas con necesidades específicas y gran vo
 
 
 const PriceSection = (props) => {
+
+  const isSmallScreen = useMediaQuery('(max-width:900px)')
+  const isMobileScreen = useMediaQuery('(max-width:750px)')
+  const isXMobileScreen = useMediaQuery('(max-width:600px)')
+  const isTabletScreen = useMediaQuery('(max-width:800px)')
+  
    
   const [plan, setPlan] = React.useState('month')
   const [BPrice, setBPrice] = React.useState(30)
@@ -98,7 +104,7 @@ const PriceSection = (props) => {
   return (
     <Box sx={{
         mt: 5,
-        px: 16,
+        px: isTabletScreen ? (isXMobileScreen ? 10 : 5) : 10,
         py: 10,
         borderTop: '2px solid #e1e1e1',
         background: '#fff',
@@ -115,7 +121,7 @@ const PriceSection = (props) => {
 
                     <Stack direction="column"  spacing={2}> 
                         <Typography 
-                            variant="h2"
+                            variant={isSmallScreen ? (isMobileScreen ? "h4" : "h3") : "h2"}
                             sx={{
                                 textAlign: 'center', 
                                 fontFamily: 'Catamaran',
@@ -129,13 +135,13 @@ const PriceSection = (props) => {
                         </Typography>
 
                         <Typography 
-                        variant="h6"
-                        sx={{
-                            textAlign: 'center', 
-                            fontFamily: 'Nunito Sans',
-                        }}
-                        >
-                        All plans FREE for the first 30 days
+                            variant="h6"
+                            sx={{
+                                textAlign: 'center', 
+                                fontFamily: 'Nunito Sans',
+                            }}
+                            >
+                            All plans FREE for the first 30 days
                         </Typography>  
                     </Stack>
 
@@ -181,7 +187,8 @@ const PriceSection = (props) => {
         </Box>
 
         <Grid container spacing={1} sx={{ alignItems: "stretch" }}>
-          <Grid item xs={12} md={3} >
+
+          <Grid item xs={12} sm={6} lg={3} >
             {
                 props.lang && props.lang === "ENG" ? (
 
@@ -192,48 +199,39 @@ const PriceSection = (props) => {
                     <PriceCard title="Básico" price={BPrice} plan={basicSpanish} time={plan} lang={props.lang} descr={basicDescrSpanish} includes="Incluido: 25 min" extra="Extra: $ 1" />
 
                 )
-            }
-            
+            } 
           </Grid>
-          <Grid item xs={12} md={3} >
+
+          <Grid item xs={12} sm={6} lg={3} >
           {
                 props.lang && props.lang === "ENG" ? (
-
                     <PriceCard title="Pro" price={PPrice} plan={pro} time={plan} lang={props.lang} descr={proDescr} includes="Included: 100 min" extra="Extra: $ 0.75" />
-
                 ) : (
-
                     <PriceCard title="Pro" price={PPrice} plan={proSpanish} time={plan} lang={props.lang} descr={proDescrSpanish} includes="Incluido: 100 min" extra="Extra: $ 0.75" />
-
                 )
             }
           </Grid>
-          <Grid item xs={12} md={3} >
+
+          <Grid item xs={12} sm={6} lg={3} >
           {
                 props.lang && props.lang === "ENG" ? (
-
                     <PriceCard title="Business" price={BsPrice} plan={business} time={plan} lang={props.lang} descr={businessDescr} includes="Included: 500 min" extra="Extra: $ 0.5" />
-
                 ) : (
-
                     <PriceCard title="Negocio" price={BsPrice} plan={businessSpanish} time={plan} lang={props.lang} descr={businessDescrSpanish} includes="Incluido: 500 min" extra="Extra: $ 0.5" />
-
                 )
             }
           </Grid>
-          <Grid item xs={12} md={3} >
+
+          <Grid item xs={12} sm={6} lg={3} >
           {
                 props.lang && props.lang === "ENG" ? (
-
                     <PriceCard title="Custom" price={EPrice} plan={custom} time={plan} lang={props.lang} descr={customDescr} special={true} includes="From 3000 min" extra="Custom price" />
-
                 ) : (
-
                     <PriceCard title="Costumbre" price={EPrice} plan={customSpanish} time={plan} lang={props.lang} descr={customDescrSpanish} special={true} includes="Desde 3000 minutos" extra="Precio personalizado" />
-
                 )
             }
           </Grid>
+
         </Grid>
     </Box>
   )

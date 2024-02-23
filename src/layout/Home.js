@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import React from 'react'
 import NavbarLogo from '../components/navbar/NavbarLogo'
 import HomeBanner from '../components/banner/HomeBanner'
@@ -14,16 +14,24 @@ import MintuesSaved from '../components/banner/MintuesSaved'
 import PriceSection from '../components/banner/PriceSection'
 import Footer from '../components/banner/Footer'
 
-const heading1 = "Start with any content format"
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import BackupOutlinedIcon from '@mui/icons-material/BackupOutlined';
+import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined';
+
+const heading1 = "Get started by signing up for free to translate"
+const heading2 = "Upload your video and select translation language"
+const heading3 = "Finally you will get a translated video "
+
 const paragraph1 = "Dummy text loreum Ipsum will be edited heres Dummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heresDummy text loreum Ipsum will be edited heres"
 
-const spanishHeading1 = "Comience con cualquier formato de contenido"
-const spanishParagraph1 = "El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí El texto ficticio loreum Ipsum se editará aquí aquí el texto ficticio loreum Ipsum se editará aquí el texto ficticio loreum Ipsum se editará aquí el texto ficticio loreum Ipsum se editará aquí el texto ficticio loreum Ipsum se editará aquí el texto ficticio loreum Ipsum se editará aquí"
-
+const spanishHeading1 = "Empieza registrándote gratis para traducir"
+const spanishHeading2 = "Sube tu video y selecciona el idioma de traducción"
+const spanishHeading3 = "Finalmente recibirás un video traducidos."
 
 const Home = () => {
 
   const [parentLang, setParentLang] = React.useState('ENG')
+  const isLaptopScreen = useMediaQuery("(max-width: 1250px)");
 
   return (
     <Box >
@@ -37,21 +45,21 @@ const Home = () => {
         }}>
           <FlagSlider lang={parentLang} />
         </Box>
-        {/* <VideoSection lang={parentLang} /> */}
-        {/* <ThreeStep lang={parentLang} /> */}
+        <VideoSection lang={parentLang} />
+        <ThreeStep lang={parentLang} />
 
         {
           parentLang === "ENG" ? (
             <>
-              <FourSteps heading={heading1} text={paragraph1} video={video_1} first="first" lang={parentLang}   />
-              <FourStepsR heading={heading1} text={paragraph1} video={video_2} lang={parentLang} />
-              <FourSteps heading={heading1} text={paragraph1} video={video_3} lang={parentLang} />\
+              <FourSteps heading={heading1} video={video_1} first="first" lang={parentLang} icon={<AccountCircleOutlinedIcon sx={{ height: isLaptopScreen ? 50 : 100,width: isLaptopScreen ? 50 : 100, color: '#380036'}} />} />
+              <FourStepsR heading={heading2} video={video_2} lang={parentLang} icon={<BackupOutlinedIcon sx={{ height: isLaptopScreen ? 50 : 100,width: isLaptopScreen ? 50 : 100, color: '#380036'}} />} />
+              <FourSteps heading={heading3} video={video_3} lang={parentLang} icon={<OndemandVideoOutlinedIcon sx={{ height: isLaptopScreen ? 50 : 100,width: isLaptopScreen ? 50 : 100, color: '#380036'}} />} />\
             </>
           ) : (
             <>
-              <FourSteps heading={spanishHeading1} text={spanishParagraph1} video={video_1} first="first" lang={parentLang}   />
-              <FourStepsR heading={spanishHeading1} text={spanishParagraph1} video={video_2} lang={parentLang} />
-              <FourSteps heading={spanishHeading1} text={spanishParagraph1} video={video_3} lang={parentLang} />\
+              <FourSteps heading={spanishHeading1} video={video_1} first="first" lang={parentLang}   />
+              <FourStepsR heading={spanishHeading2} video={video_2} lang={parentLang} />
+              <FourSteps heading={spanishHeading3} video={video_3} lang={parentLang} />\
             </>
           )
         }
