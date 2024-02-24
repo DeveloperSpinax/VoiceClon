@@ -16,7 +16,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
-import { IconButton, useMediaQuery, MenuItem, MenuList } from '@mui/material';
+import { IconButton, useMediaQuery, MenuItem, MenuList, ListItemIcon } from '@mui/material';
 
 
 // Icons and Images
@@ -24,6 +24,21 @@ import Logo from '../../static/landingPage/Logo_edited.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
+import LocalAtmOutlinedIcon from '@mui/icons-material/LocalAtmOutlined';
+import AdsClickOutlinedIcon from '@mui/icons-material/AdsClickOutlined';
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined';
+import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
+import EmojiFlagsOutlinedIcon from '@mui/icons-material/EmojiFlagsOutlined';
+
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -43,30 +58,48 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const pages = ['Products', 'Pricing', 'Blog'];
-
 const page = [
+  { name: 'Menu 1', subItems: ['Submenu 1', 'Submenu 2'] },
+  { name: 'Menu 2', subItems: ['Submenu 3', 'Submenu 4'] },
+  { name: 'Menu 3', subItems: ['Submenu 5', 'Submenu 6'] }
+];
+
+const pages = [
   {
     name: "Use Case",
-    icon: '',
-    subMenu : ["Item 1", "Item 2"]
+    icon: <VerifiedUserOutlinedIcon />,
+    subMenu : ["Product Marketing", "Content Marketing"],
+    subIcon : [<LocalGroceryStoreIcon />, <AdsClickOutlinedIcon />],
+    link: ''
   },
   {
     name: "Feature",
-    icon: '',
-    subMenu : ["Item 1", "Item 2"]
+    icon: <OndemandVideoOutlinedIcon />,
+    subMenu : ["Video Translate"],
+    subIcon : [<PlayArrowOutlinedIcon />],
+    link: ''
   },
   {
     name: "Resource",
-    icon: '',
-    subMenu : ["Item 1", "Item 2"]
+    icon: <CategoryOutlinedIcon />,
+    subMenu : ["Creator Fund", "Affiliate Programme", "Careers"],
+    subIcon : [<LocalAtmOutlinedIcon />, <ContentPasteIcon />, <PersonSearchOutlinedIcon />],
+    link: ''
   },
   {
     name: "Pricing",
-    icon: '',
-    subMenu : "none"
+    icon: <AttachMoneyOutlinedIcon />,
+    subMenu : [],
+    subIcon: [],
+    link: ''
   },
-
+  {
+    name: "Language",
+    icon: <TranslateOutlinedIcon />,
+    subMenu: ["English", "Spanish"],
+    subIcon: [<FlagOutlinedIcon />, <EmojiFlagsOutlinedIcon/>],
+    link: ''
+  },
 ]
 
 const NavbarLogo = (props) => {
@@ -77,27 +110,23 @@ const NavbarLogo = (props) => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
   const isMobileScreen = useMediaQuery("(max-width: 900px)")
   const isTabletScreen = useMediaQuery("(max-width: 1200px)")
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(false);
+  const [expandedMenuIndex, setExpandedMenuIndex] = useState(null);
+  const [iconDisplay, setIconDisplay] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    setIconDisplay(true)
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    setExpandedMenuIndex(null);
+    setIconDisplay(false)
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const handleSubMenuToggle = (index) => {
-    setOpenSubMenuIndex(prevIndex => (prevIndex === index ? null : index)); // Toggle open submenu index
+  const handleMenuExpandToggle = (index) => {
+    setExpandedMenuIndex(prevIndex => (prevIndex === index ? null : index)); // Toggle open submenu index
   };
 
   React.useEffect(() => {
@@ -263,8 +292,16 @@ const NavbarLogo = (props) => {
                     onClick={handleOpenNavMenu}
                     color="inherit"
                   >
-                    <MenuIcon sx={{ color: "#3b99ed" }} />
+                    {
+                      !iconDisplay ? (
+                        <MenuIcon sx={{ color: "#3b99ed" }} />
+                      ) : (
+                        <CancelOutlinedIcon sx={{ color: "#3b99ed" }} />
+                      )
+                    }
+                    
                   </IconButton>
+
                   <Menu
                     id="menu-appbar"
                     anchorEl={anchorElNav}
@@ -277,49 +314,40 @@ const NavbarLogo = (props) => {
                       vertical: 'top',
                       horizontal: 'left',
                     }}
-                    open={Boolean(anchorElNav)}
-                    onClose={handleCloseNavMenu}
                     PaperProps={{
                       sx: {
                         width: '100%',
                         maxWidth: '100%',
                         backgroundColor: 'white',
-                        ml: 2
+                        ml: 2,
                       },
                     }}
-                    sx={{
-                      display: { xs: 'block', md: 'none' },
-                    }}
+                    open={Boolean(anchorElNav)}
+                    onClose={handleCloseNavMenu}
                   >
                     {pages.map((page, index) => (
-          <div key={page}>
-            <MenuItem
-              onClick={() => handleSubMenuToggle(index)} // Toggle the submenu on click
-            >
-              <Typography>{page}</Typography>
-              {openSubMenuIndex === index ? <ExpandLess /> : <ExpandMore />}
-              {openSubMenuIndex === index && (
-                <Menu
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  open={true}
-                  onClose={() => setOpenSubMenuIndex(null)} // Close submenu on outside click
-                >
-                  <MenuItem onClick={handleCloseNavMenu}>Submenu 1</MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>Submenu 2</MenuItem>
-                  {/* Add more submenu items as needed */}
-                </Menu>
-              )}
-            </MenuItem>
-          </div>
-        ))}
+                      <div key={page.name}>
+                        <MenuItem
+                          onClick={() => handleMenuExpandToggle(index)} // Toggle the menu expand on click
+                        >
+                          <ListItemIcon>
+                            {page.icon}
+                          </ListItemIcon>
+                          <Typography>{page.name}</Typography>
+                          {expandedMenuIndex === index ? <ExpandLess /> : <ExpandMore />}
+                        </MenuItem>
+                        {expandedMenuIndex === index && ( // Render sub-items only if menu is expanded
+                          page.subMenu.map((subItem, subIndex) => (
+                            <MenuItem key={subIndex} onClick={handleCloseNavMenu} sx={{ ml:2 }}>
+                              <ListItemIcon>{page.subIcon[subIndex]}</ListItemIcon>
+                              <Typography>{subItem}</Typography>
+                            </MenuItem>
+                          ))
+                        )}
+                      </div>
+                    ))}
                   </Menu>
+                  
 
                 </Box>
     
