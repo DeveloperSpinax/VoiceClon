@@ -15,9 +15,9 @@ const VideoSection = (props) => {
 
   return (
     <Box sx={{
-        mt: 3,
+        mt: 1,
         px: 4,
-        py: 4,
+        py: 2,
         borderBottom: '2px solid #e1e1e1',
     }}>
 

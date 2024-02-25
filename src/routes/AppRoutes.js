@@ -9,6 +9,7 @@ import SignUp from '../auth/SignUp';
 import SignUpSpanish from '../auth/SignUpSpanish';
 import Dashboard from '../layout/Dashboard';
 import Translate from '../layout/Translate';
+import ProductMarket from '../layout/usecase/ProductMarket';
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
           <Route path='/signup-esp' element={<SignUpSpanish />} />
           <Route path='/translate' element={<Translate />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/product-marketing' element={<ProductMarket />} />
       </Routes>
   )
 }

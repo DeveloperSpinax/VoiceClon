@@ -40,8 +40,7 @@ const Home = () => {
         <HomeBanner lang={parentLang}  />
         <Box sx={{
           px: 18,
-          py: 2,
-          mt: 3
+          mt: 4,
         }}>
           <FlagSlider lang={parentLang} />
         </Box>

@@ -102,17 +102,61 @@ const pages = [
   },
 ]
 
+const pagesMainNav = [
+  {
+    name: "Use Case",
+    icon: <VerifiedUserOutlinedIcon />,
+    subMenu : ["Product Marketing", "Content Marketing"],
+    subIcon : [<LocalGroceryStoreIcon />, <AdsClickOutlinedIcon />],
+    link: ''
+  },
+  {
+    name: "Feature",
+    icon: <OndemandVideoOutlinedIcon />,
+    subMenu : ["Video Translate"],
+    subIcon : [<PlayArrowOutlinedIcon />],
+    link: ''
+  },
+  {
+    name: "Resource",
+    icon: <CategoryOutlinedIcon />,
+    subMenu : ["Creator Fund", "Affiliate Programme", "Careers"],
+    subIcon : [<LocalAtmOutlinedIcon />, <ContentPasteIcon />, <PersonSearchOutlinedIcon />],
+    link: ''
+  },
+  {
+    name: "Pricing",
+    icon: <AttachMoneyOutlinedIcon />,
+    subMenu : [],
+    subIcon: [],
+    link: ''
+  },
+]
+
 const NavbarLogo = (props) => {
 
   const [renderLang, setRenderLang] = React.useState('ENG');
   const [hasScrolled, setHasScrolled] = React.useState(false);
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
-  const isMobileScreen = useMediaQuery("(max-width: 900px)")
+  const isMobileScreen = useMediaQuery("(max-width: 1010px)")
   const isTabletScreen = useMediaQuery("(max-width: 1200px)")
   const [anchorElNav, setAnchorElNav] = React.useState(false);
   const [expandedMenuIndex, setExpandedMenuIndex] = useState(null);
   const [iconDisplay, setIconDisplay] = useState(false);
+  const [openSubMenuIndex, setOpenSubMenuIndex] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event, index, subMenu) => {
+    if (subMenu.length === 0) return;
+    setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpenSubMenuIndex(null);
+    setAnchorEl(null);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -179,21 +223,70 @@ const NavbarLogo = (props) => {
                   variant={isTabletScreen ? "h5" : "h4"}
                   noWrap
                   sx={{
-                  ml: 2,
-                  mt: 1.5,
-                  display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'Catamaran',
-                  fontWeight: 1000,
-                  letterSpacing: '.2rem',
-                  background: 'linear-gradient(45deg, #2786d7, #5df9fd)',
-                  color: 'transparent',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  textDecoration: 'none',
+                    ml: 2,
+                    mt: 1.5,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'Catamaran',
+                    fontWeight: 1000,
+                    letterSpacing: '.2rem',
+                    background: 'linear-gradient(45deg, #2786d7, #5df9fd)',
+                    color: 'transparent',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    textDecoration: 'none',
+                    justifyContent: 'center', // Center horizontally
                 }}
                 >
                     VoiceClon
                 </Typography>
+
+                <Box
+                  sx={{
+                    display: isMobileScreen ? "none" : "flex",
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    mt: 1,
+                    flexGrow: 1
+
+                  }}
+                >
+                  {pagesMainNav.map((page, index) => (
+                    <React.Fragment key={index}>
+                      <Button
+                        aria-controls={`menu-${index}`}
+                        aria-haspopup="true"
+                        onClick={(event) => handleClick(event, index, page.subMenu)}
+                        sx={{
+                          textTransform: "none",
+                          color: '#380036',
+                          mx: { // Adjust spacing for extra small screens
+                            sm: 0.5, // Adjust spacing for small screens
+                            md: 1, // Adjust spacing for medium screens
+                            lg: 1.5, // Adjust spacing for large screens
+                          },
+                        }}
+                        startIcon={page.icon}
+                      >
+                        <Typography sx={{ color: '#3b99ed', fontSize: '16px', fontFamily: 'Catamaran' }}>{page.name}</Typography>
+                      </Button>
+                      {page.subMenu.length > 0 && (
+                        <Menu
+                          id={`menu-${index}`}
+                          anchorEl={anchorEl}
+                          open={openSubMenuIndex === index}
+                          onClose={handleClose}
+                        >
+                          {page.subMenu.map((subItem, subIndex) => (
+                            <MenuItem key={subIndex} onClick={handleClose}>
+                              <ListItemIcon sx={{ color: '#380036', height: 20, width: 20, mt:-1 }}>{page.subIcon[subIndex]}</ListItemIcon>
+                              <Typography sx={{ color: '#3b99ed', fontSize: '14px', fontFamily: 'Catamaran' }}>{subItem}</Typography>
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </Box>
 
                 <Box sx={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
 
@@ -209,7 +302,7 @@ const NavbarLogo = (props) => {
                       renderLang === "ENG" && (
                         <>
                           <Button sx={{ 
-                            mr: 2.5,
+                            // mr: 2.5,
                             mt: 0.5,
                             color: '#3b99ed', 
                             textTransform: 'capitalize',
@@ -222,7 +315,8 @@ const NavbarLogo = (props) => {
                           <Button sx={{
                               boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)', 
                               color: '#fff', 
-                              mr: { xs: 2, md: 8},
+                              // mr: { xs: 2, md: 8},
+                              mx: 2,
                               background: 'linear-gradient(20deg, #2786d7, #5df9fd)',
                               borderRadius: '5px', 
                               textTransform: 'capitalize', 
@@ -330,17 +424,23 @@ const NavbarLogo = (props) => {
                         <MenuItem
                           onClick={() => handleMenuExpandToggle(index)} // Toggle the menu expand on click
                         >
-                          <ListItemIcon>
+                          <ListItemIcon sx={{ color: '#380036', }}>
                             {page.icon}
                           </ListItemIcon>
-                          <Typography>{page.name}</Typography>
-                          {expandedMenuIndex === index ? <ExpandLess /> : <ExpandMore />}
+                          <Typography sx={{ color: '#3b99ed', fontSize: '16px', fontFamily: 'Catamaran' }}>{page.name}</Typography>
+                            {page.subMenu.length > 0 && 
+                              (expandedMenuIndex === index ? 
+                                <ListItemIcon sx={{ color: '#380036', }}><ExpandLess /></ListItemIcon>
+                                : 
+                                <ListItemIcon sx={{ color: '#380036', }}><ExpandMore /></ListItemIcon>
+                              )
+                            }
                         </MenuItem>
                         {expandedMenuIndex === index && ( // Render sub-items only if menu is expanded
                           page.subMenu.map((subItem, subIndex) => (
                             <MenuItem key={subIndex} onClick={handleCloseNavMenu} sx={{ ml:2 }}>
-                              <ListItemIcon>{page.subIcon[subIndex]}</ListItemIcon>
-                              <Typography>{subItem}</Typography>
+                              <ListItemIcon sx={{ color: '#380036', height: 20, width: 20, mt:-1 }}>{page.subIcon[subIndex]}</ListItemIcon>
+                              <Typography sx={{ color: '#3b99ed', fontSize: '14px', fontFamily: 'Catamaran' }}>{subItem}</Typography>
                             </MenuItem>
                           ))
                         )}
@@ -348,7 +448,6 @@ const NavbarLogo = (props) => {
                     ))}
                   </Menu>
                   
-
                 </Box>
     
             </Toolbar>

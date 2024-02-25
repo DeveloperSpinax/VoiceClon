@@ -19,24 +19,18 @@ const DropDownFlags = (props) => {
   };
 
   return (
-    <FormControl>
+    <FormControl size="small">
       <Select 
         value={selectedLang} 
-        onChange={handleChange} 
-        size="small" 
-        autoWidth
+        onChange={handleChange}
         sx={{
-            padding: "0px -4px !important",  // Adjust the padding values as you see fit
-            '& .MuiSelect-select': {
-            }
-          }}
-    >
+          padding: "0px -4px !important",
+        }}
+      >
         {flags.map((flag, index) => (
           <MenuItem value={flag.lang} key={index}>
             <Tooltip title={flag.Country} placement="right">
-              <span>
-                <Flag country={flag.code} size={15} />
-              </span>
+              <Flag country={flag.code} size={15} />
             </Tooltip>
           </MenuItem>
         ))}
